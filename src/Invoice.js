@@ -9,6 +9,8 @@ const Invoice = () => {
       <div id="invoice-content">
       <img src="/Flyerfx.png" alt="Company Logo" style={{ position: 'absolute',width: "150px",right: '10px',top: 'auto', marginBottom: "20px" }} />
       <h2>Invoice</h2>
+      <p dir="rtl">مرحبا بكم في موقعي الإلكتروني</p>
+
       <p><strong>Invoice Number:</strong> INV-123456</p>
       <p><strong>Date:</strong> 2025-02-17</p>
       <p><strong>Customer:</strong> John Doe</p>

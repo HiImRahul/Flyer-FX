@@ -1,6 +1,7 @@
 import './App.css';
 import JSPMprintButton from './PrintButton.js'
 import QZPrintButton from './QZPrint.js'
+import QZPrint80mm from './QZPrint80mm.js'
 import Invoice from './Invoice.js'
 import {useSelector ,useDispatch} from 'react-redux'
 import { increment,decrement } from './Action';
@@ -16,6 +17,8 @@ function App() {
      <Invoice/>
      <JSPMprintButton/>
      <QZPrintButton/>
+     <QZPrint80mm/>
+     
      <button onClick={()=>dispatch(increment())}>Add</button>
      <button onClick={()=>dispatch(decrement())}>Reduce</button>
     </div>
