@@ -5,7 +5,11 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
     "cra-template": "1.2.0",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.2",
+    "jsprintmanager": "^7.0.2",
     "my-app": "file:",
+    "qz-tray": "^2.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
