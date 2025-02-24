@@ -1,23 +1,20 @@
 import React, { useState } from "react";
 import { Button, Typography, Box, Paper, Snackbar, Alert } from "@mui/material";
 
-const Uploadr = () => {
-  const [file, setFile] = useState(null);
-  const [previewURL, setPreviewURL] = useState("");
+const Uploadr = ({ uploadedFile, setUploadedFile }) => {
   const [showAlert, setShowAlert] = useState(false);
+  const [previewURL, setPreviewURL] = useState(uploadedFile ? URL.createObjectURL(uploadedFile) : "");
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      setFile(selectedFile);
-      setPreviewURL(
-        selectedFile.type === "application/pdf" ? URL.createObjectURL(selectedFile) : ""
-      );
+      setUploadedFile(selectedFile);
+      setPreviewURL(selectedFile.type === "application/pdf" ? URL.createObjectURL(selectedFile) : "");
     }
   };
 
   const handleSubmit = () => {
-    if (file) {
+    if (uploadedFile) {
       setShowAlert(true);
     }
   };
@@ -44,9 +41,9 @@ const Uploadr = () => {
           </Button>
         </label>
 
-        {file && (
+        {uploadedFile && (
           <Box mt={2}>
-            <Typography variant="body1">Selected File: {file.name}</Typography>
+            <Typography variant="body1">Selected File: {uploadedFile.name}</Typography>
             {previewURL && (
               <iframe
                 src={previewURL}
@@ -70,12 +67,11 @@ const Uploadr = () => {
         </Button>
       </Paper>
 
-      
       <Snackbar
         open={showAlert}
-        autoHideDuration={3000} 
+        autoHideDuration={3000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }} 
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert onClose={handleClose} severity="success" variant="filled">
           File saved successfully!
