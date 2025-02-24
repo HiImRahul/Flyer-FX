@@ -1,10 +1,13 @@
 import './App.css';
-import JSPMprintButton from './PrintButton.js'
-import QZPrintButton from './QZPrint.js'
-import QZPrint80mm from './QZPrint80mm.js'
-import Invoice from './Invoice.js'
+// import JSPMprintButton from './PrintButton.js'
+// import QZPrintButton from './QZPrint.js'
+// import QZPrint80mm from './QZPrint80mm.js'
+// import Invoice from './Invoice.js'
+// import JSPM80mm from './JSPM80mm.js';
 import {useSelector ,useDispatch} from 'react-redux'
-import { increment,decrement } from './Action';
+//import { increment,decrement } from './Action';
+import JobRegistrationForm from './Components/JobForm.js'
+import Header from './Components/Header.js';
 
 
 //changed to 1
@@ -14,13 +17,14 @@ function App() {
   return (
     <div className="App">
      
-     <Invoice/>
-     <JSPMprintButton/>
-     <QZPrintButton/>
-     <QZPrint80mm/>
+   
+     <Header/>
+     <JobRegistrationForm/>
      
-     <button onClick={()=>dispatch(increment())}>Add</button>
-     <button onClick={()=>dispatch(decrement())}>Reduce</button>
+
+     
+     {/* <button onClick={()=>dispatch(increment())}>Add</button>
+     <button onClick={()=>dispatch(decrement())}>Reduce</button> */}
     </div>
   );
 }

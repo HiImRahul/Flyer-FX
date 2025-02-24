@@ -8,7 +8,6 @@ const QZPrint80mm = () => {
     try {
       const invoiceElement = document.getElementById("invoice-content");
 
-      // Set the scale to fit 80mm width (640px)
       const canvas = await html2canvas(invoiceElement, { 
         useCORS: true, 
         scale: 2, // Ensures higher resolution
@@ -21,11 +20,9 @@ const QZPrint80mm = () => {
       await qz.websocket.connect();
       const printer = await qz.printers.getDefault();
       
-      // Configure QZ Tray with 80mm width
       const config = qz.configs.create(printer, {
         scaleContent: true, 
-        rasterize: true, // Ensures proper receipt printing
-        density: 50, // DPI (adjust if needed)
+        rasterize: true, 
         units: "mm",
         width: 80 // Ensuring width fits 80mm paper
       });
@@ -35,8 +32,8 @@ const QZPrint80mm = () => {
           type: "pixel",
           format: "image",
           flavor: "base64",
-          data: base64Data,
-        },
+          data: base64Data
+        }
       ];
 
       await qz.print(config, data).catch(e => console.error(e));
