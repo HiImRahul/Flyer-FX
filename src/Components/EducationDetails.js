@@ -1,12 +1,7 @@
 import React from "react";
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField, Button } from "@mui/material";
 
-const EducationDetails = ({ formData, setFormData }) => {
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ [name]: value });
-  };
-
+const EducationDetails = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -14,8 +9,6 @@ const EducationDetails = ({ formData, setFormData }) => {
           fullWidth
           label="Highest Qualification"
           name="qualification"
-          value={formData.qualification}
-          onChange={handleChange}
           required
         />
       </Grid>
@@ -24,8 +17,6 @@ const EducationDetails = ({ formData, setFormData }) => {
           fullWidth
           label="University/College"
           name="college"
-          value={formData.college}
-          onChange={handleChange}
           required
         />
       </Grid>
@@ -35,8 +26,6 @@ const EducationDetails = ({ formData, setFormData }) => {
           label="Years of Experience"
           type="number"
           name="experience"
-          value={formData.experience}
-          onChange={handleChange}
           required
         />
       </Grid>

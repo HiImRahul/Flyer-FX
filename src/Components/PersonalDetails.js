@@ -1,40 +1,28 @@
-import React from "react";
-import { Grid, TextField, MenuItem, FormControlLabel, Switch } from "@mui/material";
+import React, { useState } from "react";
+import { Grid, TextField, MenuItem } from "@mui/material";
+import { FormControlLabel, Switch } from "@mui/material";
 
-const PersonalDetails = ({ formData, setFormData }) => {
-  const jobPositions = ["Software Engineer", "Product Manager", "Data Scientist", "UX Designer"];
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ [name]: value });
-  };
+const PersonalDetails = () => {
+  const jobPositions = [
+    "Software Engineer",
+    "Product Manager",
+    "Data Scientist",
+    "UX Designer",
+  ];
+  const [currentAddress, setCurrentAddress] = useState("");
+  const [presentAddress, setPresentAddress] = useState("");
 
   const handleCopyAddress = () => {
-    setFormData({ presentAddress: formData.currentAddress });
+    setPresentAddress(currentAddress);
   };
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <TextField
-          fullWidth
-          label="Full Name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+        <TextField fullWidth label="Full Name" name="name" required />
       </Grid>
       <Grid item xs={12}>
-        <TextField
-          fullWidth
-          label="Email"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <TextField fullWidth label="Email" type="email" name="email" required />
       </Grid>
       <Grid item xs={12}>
         <TextField
@@ -42,8 +30,6 @@ const PersonalDetails = ({ formData, setFormData }) => {
           label="Phone Number"
           type="tel"
           name="phone"
-          value={formData.phone}
-          onChange={handleChange}
           required
         />
       </Grid>
@@ -53,8 +39,6 @@ const PersonalDetails = ({ formData, setFormData }) => {
           fullWidth
           label="Job Position"
           name="position"
-          value={formData.position}
-          onChange={handleChange}
           required
         >
           {jobPositions.map((position) => (
@@ -69,19 +53,22 @@ const PersonalDetails = ({ formData, setFormData }) => {
           fullWidth
           label="Current Address"
           name="currentAddress"
-          value={formData.currentAddress}
-          onChange={handleChange}
+          value={currentAddress}
+          onChange={(e) => setCurrentAddress(e.target.value)}
           required
         />
-        <FormControlLabel control={<Switch onChange={handleCopyAddress} />} label="Same as Current Address" />
+        <FormControlLabel
+          control={<Switch onChange={handleCopyAddress} />}
+          label="Same as Current Address"
+        />
       </Grid>
       <Grid item xs={12}>
         <TextField
           fullWidth
           label="Present Address"
           name="presentAddress"
-          value={formData.presentAddress}
-          onChange={handleChange}
+          value={presentAddress}
+          onChange={(e) => setPresentAddress(e.target.value)}
           required
         />
       </Grid>
