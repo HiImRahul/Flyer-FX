@@ -79,7 +79,7 @@ const Uploadr = () => {
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert onClose={handleClose} severity="success" variant="filled">
-          File saved successfully!
+          Application submitted successfully!
         </Alert>
       </Snackbar>
     </>

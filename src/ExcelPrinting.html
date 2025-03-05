@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Table to Excel with Background Color</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #myTable {
+            width: 80%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        #myTable th {
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+        }
+        #myTable td {
+            background-color: #e8f5e9;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        #myTable tr:hover td {
+            background-color: #c8e6c9;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #388e3c, #66bb6a);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Employee Data</h2>
+    <table id="myTable" border="1">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Alice</td>
+                <td>25</td>
+                <td>HR</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Bob</td>
+                <td>30</td>
+                <td>IT</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Charlie</td>
+                <td>28</td>
+                <td>Marketing</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <button onclick="exportTableToExcel()">Download Excel</button>
+
+    <script>
+        function exportTableToExcel() {
+            let data = [
+                ["S.No", "Name", "Age", "Department"],
+                ["1", "Alice", "25", "HR"],
+                ["2", "Bob", "30", "IT"],
+                ["3", "Charlie", "28", "Marketing"]
+            ];
+
+            let workbook = XLSX.utils.book_new();
+            let worksheet = XLSX.utils.aoa_to_sheet(data);
+
+            // Define styles
+            let headerStyle = {
+                fill: { fgColor: { rgb: "4CAF50" } }, // Green header
+                font: { bold: true, color: { rgb: "FFFFFF" } } // White text
+            };
+
+            let cellStyle = {
+                fill: { fgColor: { rgb: "E8F5E9" } }, // Light green background
+                font: { color: { rgb: "000000" } } // Black text
+            };
+
+            // Apply styles
+            let range = XLSX.utils.decode_range(worksheet["!ref"]);
+            for (let C = range.s.c; C <= range.e.c; C++) {
+                let cellAddress = XLSX.utils.encode_cell({ r: 0, c: C });
+                if (worksheet[cellAddress]) {
+                    worksheet[cellAddress].s = headerStyle;
+                }
+            }
+
+            for (let R = 1; R <= range.e.r; R++) {
+                for (let C = 0; C <= range.e.c; C++) {
+                    let cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
+                    if (worksheet[cellAddress]) {
+                        worksheet[cellAddress].s = cellStyle;
+                    }
+                }
+            }
+
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+            XLSX.writeFile(workbook, "EmployeeData.xlsx");
+        }
+    </script>
+
+</body>
+</html>

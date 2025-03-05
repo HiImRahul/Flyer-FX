@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Container, Paper, Box, Tab, Typography } from "@mui/material";
+import { Container, Paper, Box, Tab, Typography, Button } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import PersonalDetails from "./PersonalDetails";
 import EducationDetails from "./EducationDetails";
 import Upload from "./Upload";
+
+
 const JobRegistrationForm = () => {
   const [value, setValue] = useState("1");
 
@@ -13,8 +15,16 @@ const JobRegistrationForm = () => {
     setValue(newValue);
   };
 
+  const handleNext = () => {
+    setValue((prev) => (parseInt(prev) + 1).toString());
+  };
+
+  const handlePrev = () => {
+    setValue((prev) => (parseInt(prev) - 1).toString());
+  };
+
   return (
-    <>
+    <div className="spider-web-background">
       <Container maxWidth="sm">
         <Paper elevation={3} style={{ padding: 20, marginTop: 20 }}>
           <Typography variant="h5" gutterBottom>
@@ -40,9 +50,19 @@ const JobRegistrationForm = () => {
               </TabPanel>
             </TabContext>
           </Box>
+
+          {/* Navigation Buttons */}
+          <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
+            <Button variant="contained" onClick={handlePrev} disabled={value === "1"}>
+              Previous
+            </Button>
+            <Button variant="contained" onClick={handleNext} disabled={value === "3"}>
+              Next
+            </Button>
+          </Box>
         </Paper>
       </Container>
-    </>
+    </div>
   );
 };
 

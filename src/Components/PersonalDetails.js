@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, TextField, MenuItem } from "@mui/material";
+import { Grid, TextField, MenuItem, InputAdornment } from "@mui/material";
 import { FormControlLabel, Switch } from "@mui/material";
 
 const PersonalDetails = () => {
@@ -12,8 +12,12 @@ const PersonalDetails = () => {
   const [currentAddress, setCurrentAddress] = useState("");
   const [presentAddress, setPresentAddress] = useState("");
 
-  const handleCopyAddress = () => {
-    setPresentAddress(currentAddress);
+  const handleCopyAddress = (event) => {
+    if (event.target.checked) {
+      setPresentAddress(currentAddress);
+    } else {
+      setPresentAddress("");
+    }
   };
 
   return (
@@ -28,7 +32,7 @@ const PersonalDetails = () => {
         <TextField
           fullWidth
           label="Phone Number"
-          type="tel"
+          type="number"
           name="phone"
           required
         />
@@ -56,10 +60,7 @@ const PersonalDetails = () => {
           value={currentAddress}
           onChange={(e) => setCurrentAddress(e.target.value)}
           required
-        />
-        <FormControlLabel
-          control={<Switch onChange={handleCopyAddress} />}
-          label="Same as Current Address"
+ 
         />
       </Grid>
       <Grid item xs={12}>
@@ -70,6 +71,18 @@ const PersonalDetails = () => {
           value={presentAddress}
           onChange={(e) => setPresentAddress(e.target.value)}
           required
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <FormControlLabel
+                  control={<Switch onChange={handleCopyAddress} />}
+                  label="Same"
+                  labelPlacement="start"
+                  sx={{ marginLeft: 1 }}
+                />
+              </InputAdornment>
+            ),
+          }}
         />
       </Grid>
     </Grid>
